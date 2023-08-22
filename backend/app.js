@@ -56,6 +56,33 @@ app.get('/trains', async (req, res) => {
   }
 });
 
+// Implement the /register route for company registration
+app.post('/register', async (req, res) => {
+  try {
+    const registrationDetails = {
+      companyName: "Train central",
+      ownerName: "Ram",
+      rollNo: "1",
+      ownerEmail: "ram@abc.edu",
+      accessCode: "FKDLig"
+    };
+
+    // Make a POST request to register the company
+    const registrationResponse = await axios.post('http://20.244.56.144/train/register', registrationDetails);
+
+    const { clientID, clientSecret } = registrationResponse.data;
+
+    res.status(200).json({
+      companyName: registrationDetails.companyName,
+      clientID,
+      clientSecret
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Registration failed.');
+  }
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
