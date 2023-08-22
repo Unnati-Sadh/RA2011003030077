@@ -83,6 +83,30 @@ app.post('/register', async (req, res) => {
   }
 });
 
+// Implement the /fetch-trains route to fetch train details
+app.get('/fetch-trains', async (req, res) => {
+  try {
+    // Use the provided auth API to get the access token
+    const tokenResponse = await axios.post('http://20.244.56.144/train/auth', {
+      // Provide your company details here
+    });
+
+    const accessToken = tokenResponse.data.access_token;
+
+    // Use the access token to get train details
+    const trainsResponse = await axios.get('http://20.244.56.144/train/trains', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+
+    res.status(200).json(trainsResponse.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
