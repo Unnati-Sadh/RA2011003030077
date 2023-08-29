@@ -64,7 +64,7 @@ app.post('/register', async (req, res) => {
       ownerName: "Ram",
       rollNo: "1",
       ownerEmail: "ram@abc.edu",
-      accessCode: "FKDLig"
+      accessCode: "TzEfMS"
     };
 
     // Make a POST request to register the company
